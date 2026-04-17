@@ -20,7 +20,7 @@ The following decays are supported:
 
 Note that decays simulated with the ```PHSP``` model are not affected, and so we do not provide code to reweight them.
 
-# Usage
+# Installation
 1. Clone this repository into a local directory.
 ```bash
    git clone <repo-url>
@@ -37,6 +37,7 @@ sys.path.insert(0, "/path/to/MCAmbulance")  # repo root containing `mcambulance/
 import mcambulance
 ```
 
+# Usage
 Correcting $B^\pm \rightarrow D_0^\ast(\rightarrow D \pi) \mu \nu_\mu$ samples is achieved through:
 ```
 from mcambulance import MCAmbulance
