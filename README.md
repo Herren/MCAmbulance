@@ -66,3 +66,6 @@ If you use MCAmbulance, you should cite the following references:
 # Authors
  * Florian Herren <florian.s.herren@gmail.com>
  * Raynette van Tonder <raynette.vantonder@kit.edu>
+
+# Contributors
+ * Ilias Tsaklidis
