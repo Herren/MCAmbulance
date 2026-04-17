@@ -29,10 +29,11 @@ from mcambulance import MCAmbulance
 
 d0_d_pi_fix = MCAmbulance('bp', 'd0_d_pi', 'mu')
 
-d0_d_pi_fix.CorrectionWeight(dpi_invM)
+weights = d0_d_pi_fix.CorrectionWeight(dpi_invM)
 ```
 
 Here, ```dpi_invM``` is a numpy array containing the **truth-level** $D\pi$ invariant mass for each affected event.
+The numpy array ```weights``` now contains the correction weights for each event.
 
 The constructor of ```MCAmbulance``` takes three arguments:
 - ```bmeson```: ```bp``` or ```b0``` for charged or neutral $B$ mesons, respectively
