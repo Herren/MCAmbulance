@@ -21,7 +21,7 @@ import numpy as np
 from copy import deepcopy
 
 from .ff_hqet import BtoD0lnu_HQET, BtoD1plnu_HQET
-from .ff_hqet import BtoD0lnu_ISGW2, BtoD1plnu_ISGW2
+from .ff_isgw2 import BtoD0lnu_ISGW2, BtoD1plnu_ISGW2
 from .defaults import ff_conf_dict, kin_conf_dict
 
 class MCAmbulance:
