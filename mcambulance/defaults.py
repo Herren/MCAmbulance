@@ -18,7 +18,7 @@
 # If not, see <https://www.gnu.org/licenses/>. 
 
 from copy import deepcopy
-from .conf import kin_conf, hqet_conf, isgw2_conf
+from .conf import kin_conf, hqet_conf, isgw2_conf, bcl_conf
 import numpy as np
 
 broad_isgw2_conf = isgw2_conf()
@@ -375,3 +375,23 @@ kin_conf_dict[('bp', 'd1p', 'tau', 'dstar_pipi')] = bp_d1p_tau_pipi_2_basf2_kin_
 kin_conf_dict[('b0', 'd1p', 'e', 'dstar_pipi')] = b0_d1p_e_pipi_2_basf2_kin_conf
 kin_conf_dict[('b0', 'd1p', 'mu', 'dstar_pipi')] = b0_d1p_mu_pipi_2_basf2_kin_conf
 kin_conf_dict[('b0', 'd1p', 'tau', 'dstar_pipi')] = b0_d1p_tau_pipi_2_basf2_kin_conf
+
+
+# Here we add the rho mu nu decay
+rho_kin_conf = kin_conf()
+rho_kin_conf.m_1 = 5279.34e-3
+rho_kin_conf.m_2 = 139.57039e-3
+rho_kin_conf.m_3 = 139.57039e-3
+rho_kin_conf.m_l = 105.65837e-3
+rho_kin_conf.m_nom = 775.26e-3
+rho_kin_conf.g_nom = 147.8e-3
+rho_kin_conf.l = 1
+
+rho_bcl_conf = bcl_conf()
+rho_bcl_conf.params_a0 = [8 * 0.291 * rho_kin_conf.m_1 * rho_kin_conf.m_nom / (rho_kin_conf.m_1**2 - rho_kin_conf.m_nom**2), -0.861, 1.444]
+rho_bcl_conf.params_a1 = [0.266, 0.378, 0.165]
+rho_bcl_conf.params_a12 = [0.291, 0.718, 0.384]
+rho_bcl_conf.params_v = [0.331, -0.876, 1.907]
+
+ff_conf_dict[('rho')] = rho_bcl_conf
+kin_conf_dict[('bp', 'rho', 'mu')] = rho_kin_conf

@@ -22,6 +22,7 @@ from copy import deepcopy
 
 from .ff_hqet import BtoD0lnu_HQET, BtoD1plnu_HQET
 from .ff_isgw2 import BtoD0lnu_ISGW2, BtoD1plnu_ISGW2
+from .ff_bcl import BtoRholnu_BCL
 from .defaults import ff_conf_dict, kin_conf_dict
 
 class MCAmbulance:
@@ -48,6 +49,11 @@ class MCAmbulance:
             self._decay = BtoD0lnu_ISGW2(kin_conf_dict[(bmeson, "d0", lepton)], ff_conf_dict["d0_isgw2"])
         elif channel == "d1p_dstar_pi_isgw2":
             self._decay = BtoD1plnu_ISGW2(kin_conf_dict[(bmeson, "d1p", lepton)], ff_conf_dict["d1p_isgw2"])
+        elif channel == "rho":
+            print("Initializing the B+ -> rho mu nu code, this will generate warnings due to a singularity in the q2 spectrum present in the EvtGen module.")
+            if lepton != "mu" or bmeson != "bp":
+                raise Exception("Only B+ -> rho0 mu nu decays are supported")
+            self._decay = BtoRholnu_BCL(kin_conf_dict[("bp", "rho", "mu")], ff_conf_dict["rho"])
         else:
             raise Exception("Decay not supported")
 

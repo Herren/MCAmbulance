@@ -48,3 +48,23 @@ class hqet_conf:
         self.ce_2 = 0.
         self.ce_3 = 0.
         self.ce_b = 0.
+
+class isgw2_conf:
+    def __init__(self):
+        self.lqcd2 = 0.04
+        self.nfp = 3.0
+        self.mqm = 0.1
+        self.msb = 5.2
+        self.msd = 0.33
+        self.bb2 = 0.431 * 0.431
+        self.mbb = 5.31
+        self.msq = 1.82
+        self.bx2 = 0.33 * 0.33
+        self.mbx = None
+
+class bcl_conf:
+    def __init__(self):
+        self.params_a0 = []
+        self.params_a1 = []
+        self.params_a12 = []
+        self.params_v = []
