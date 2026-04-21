@@ -1,9 +1,8 @@
 import numpy as np
 
-
-def calculate_InvM(df, prefix, E, px, py, pz, clip_negative=True):
+def calculate_mcInvM(E, px, py, pz, clip_negative=True):
     """
-    Compute the invariant mass m from per-row four-momentum components.
+    Compute the invariant mass m from four-momentum components.
 
     This function assumes a high-energy physics (HEP) convention where the
     four-vector is (E, p_x, p_y, p_z) and the Minkowski metric is (+, -, -, -):
@@ -11,52 +10,40 @@ def calculate_InvM(df, prefix, E, px, py, pz, clip_negative=True):
         m^2 = E^2 - p_x^2 - p_y^2 - p_z^2
         m   = sqrt(m^2)
 
-    The components are read from `df` using column names built as:
-
-        f"{prefix}_{E}", f"{prefix}_{px}", f"{prefix}_{py}", f"{prefix}_{pz}"
-
     Parameters
     ----------
-    df : pandas.DataFrame
-        Input dataframe containing the four-momentum component columns.
-        Each row is treated as one four-vector.
-    prefix : str
-        Prefix used to build the column names (e.g. "mu1" -> "mu1_E", "mu1_px", ...).
-    E, px, py, pz : str
-        Suffixes (or identifiers) for the energy and momentum component column names.
-        For example: E="E", px="px", py="py", pz="pz".
+    E, px, py, pz : array_like
+        Arrays (or scalars) of energy and momentum components. Inputs must be
+        broadcastable to a common shape (NumPy broadcasting rules apply).
+        Units must be consistent (commonly natural units with c=1).
     clip_negative : bool, default True
-        If True, negative values of m^2 caused by floating-point rounding are clipped
-        to 0 before taking the square root. This avoids NaNs for values that should
-        be physically ~0 (e.g., massless particles).
+        If True, negative values of m^2 caused by floating-point rounding are
+        clipped to 0 before taking the square root. This avoids NaNs for values
+        that should be physically ~0 (e.g., massless particles).
 
     Returns
     -------
     numpy.ndarray
-        Array of invariant mass values `m` for each row in `df`.
-
-    Raises
-    ------
-    KeyError
-        If any of the required columns are missing from `df`.
+        Array of invariant mass values `m` with the broadcasted shape of the
+        inputs.
 
     Notes
     -----
-    - This function does not perform unit conversion. Ensure E and p components
-      are in consistent units (commonly natural units with c=1).
-    - If `clip_negative=False`, negative m^2 values will produce `nan` from `np.sqrt`.
+    - If `clip_negative=False`, negative m^2 values will produce `nan` from
+      `np.sqrt`.
+    - This function does not perform unit conversion.
 
     Examples
     --------
-    >>> df["mu_E"], df["mu_px"], df["mu_py"], df["mu_pz"] = ...
-    >>> m = calculate_mcInvM(df, "mu", "E", "px", "py", "pz")
+    >>> m = calculate_mcInvM(E, px, py, pz)
+    >>> m = calculate_mcInvM(df["mu_E"], df["mu_px"], df["mu_py"], df["mu_pz"])
     """
-    E_arr  = df[f"{prefix}_{E}"].to_numpy()
-    px_arr = df[f"{prefix}_{px}"].to_numpy()
-    py_arr = df[f"{prefix}_{py}"].to_numpy()
-    pz_arr = df[f"{prefix}_{pz}"].to_numpy()
+    E = np.asarray(E, dtype=float)
+    px = np.asarray(px, dtype=float)
+    py = np.asarray(py, dtype=float)
+    pz = np.asarray(pz, dtype=float)
 
-    m2 = E_arr * E_arr - px_arr * px_arr - py_arr * py_arr - pz_arr * pz_arr
+    m2 = E*E - px*px - py*py - pz*pz
     if clip_negative:
         m2 = np.maximum(m2, 0.0)
 
