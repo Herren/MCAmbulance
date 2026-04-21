@@ -61,6 +61,8 @@ The constructor of ```MCAmbulance``` takes three arguments:
 
 To select the ```ISGW2``` implementations, ```channel``` is either ```d0_d_pi_isgw2``` or ```d1p_dstar_pi_isgw2```
 
+The `utils.py` file provides helper functions to compute invariant masses from four-momenta and to generate LaTeX strings for the supported decay modes.
+
 # References
 If you use MCAmbulance, you should cite the following references:
 - MCAmbulance: Florian Herren and Raynette van Tonder, [arXiv:2602.18378](https://arxiv.org/abs/2602.18378)
