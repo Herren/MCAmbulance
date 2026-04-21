@@ -59,7 +59,10 @@ The constructor of ```MCAmbulance``` takes three arguments:
 - ```channel```: ```d0_d_pi```, ```d0_d_eta```, ```d0_d_pipi```, ```d0_dstar_pipi```, ```d1p_dstar_pi```, ...
 - ```lepton```: ```e```, ```mu``` or ```tau```
 
-To select the ```ISGW2``` implementations, ```channel``` is either ```d0_d_pi_isgw2``` or ```d1p_dstar_pi_isgw2```
+To select the ```ISGW2``` implementations, ```channel``` is either ```d0_d_pi_isgw2``` or ```d1p_dstar_pi_isgw2```.
+
+In addition, we support the ```BCL``` model for $B^+\rightarrow\rho^0\mu^+\nu_\mu$ decays.
+This EvtGen model has an additional problem, a division by zero in a basis change, which we reproduce as closely as feasible.
 
 # References
 If you use MCAmbulance, you should cite the following references:
