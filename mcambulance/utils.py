@@ -149,7 +149,7 @@ def get_channel_string(channel):
     ValueError
         If `channel` is not one of the supported identifiers.
     """
-    if channel == "d0_d_pi":
+    if channel in ["d0_d_pi", "d0_d_pi_isgw2"]:
         return r"D_0^{*}(\to D\,\pi)"
     elif channel == "d0_d_eta":
         return r"D_0^{*}(\to D\,\eta)"
@@ -157,7 +157,7 @@ def get_channel_string(channel):
         return r"D_0^{*}(\to D\,\pi\pi)"
     elif channel == "d0_dstar_pipi":
         return r"D_0^{*}(\to D^{*}\,\pi\pi)"
-    elif channel == "d1p_dstar_pi":
+    elif channel in ["d1p_dstar_pi", "d1p_dstar_pi_isgw2"]:
         return r"D_1'(\to D^{*}\,\pi)"
     elif channel == "d1p_dstar_eta":
         return r"D_1'(\to D^{*}\,\eta)"
