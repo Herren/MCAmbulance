@@ -47,6 +47,11 @@ m_pi_pm = 139.57039e-3
 m_pi_0 = 134.9768e-3
 m_eta = 547.857e-3 # EvtGen includes eta width, avoid nans by shifting value in the last digit
 
+m_rho_0 = 775.26e-3
+m_rho_pm = 775.11e-3
+gam_rho_0 = 147.4e-3
+gam_rho_pm = 149.1e-3
+
 m_D_pm = 1869.65e-3
 m_D_0 = 1864.83e-3
 m_Dstar_pm = 2010.26e-3
@@ -377,21 +382,50 @@ kin_conf_dict[('b0', 'd1p', 'mu', 'dstar_pipi')] = b0_d1p_mu_pipi_2_basf2_kin_co
 kin_conf_dict[('b0', 'd1p', 'tau', 'dstar_pipi')] = b0_d1p_tau_pipi_2_basf2_kin_conf
 
 
-# Here we add the rho mu nu decay
-rho_kin_conf = kin_conf()
-rho_kin_conf.m_1 = 5279.34e-3
-rho_kin_conf.m_2 = 139.57039e-3
-rho_kin_conf.m_3 = 139.57039e-3
-rho_kin_conf.m_l = 105.65837e-3
-rho_kin_conf.m_nom = 775.26e-3
-rho_kin_conf.g_nom = 147.8e-3
-rho_kin_conf.l = 1
+# Here we add the rho l nu decay
+bp_rho0_mu_kin_conf = kin_conf()
+bp_rho0_mu_kin_conf.m_1 = m_B_pm
+bp_rho0_mu_kin_conf.m_2 = m_pi_pm
+bp_rho0_mu_kin_conf.m_3 = m_pi_pm
+bp_rho0_mu_kin_conf.m_l = m_mu
+bp_rho0_mu_kin_conf.m_nom = m_rho_0
+bp_rho0_mu_kin_conf.g_nom = gam_rho_0
+bp_rho0_mu_kin_conf.l = 1
 
-rho_bcl_conf = bcl_conf()
-rho_bcl_conf.params_a0 = [8 * 0.291 * rho_kin_conf.m_1 * rho_kin_conf.m_nom / (rho_kin_conf.m_1**2 - rho_kin_conf.m_nom**2), -0.861, 1.444]
-rho_bcl_conf.params_a1 = [0.266, 0.378, 0.165]
-rho_bcl_conf.params_a12 = [0.291, 0.718, 0.384]
-rho_bcl_conf.params_v = [0.331, -0.876, 1.907]
+bp_rho0_e_kin_conf = deepcopy(bp_rho0_mu_kin_conf)
+bp_rho0_e_kin_conf.m_l = m_e
 
-ff_conf_dict[('rho')] = rho_bcl_conf
-kin_conf_dict[('bp', 'rho', 'mu')] = rho_kin_conf
+
+b0_rhopm_mu_kin_conf = kin_conf()
+b0_rhopm_mu_kin_conf.m_1 = m_B_0
+b0_rhopm_mu_kin_conf.m_2 = m_pi_pm
+b0_rhopm_mu_kin_conf.m_3 = m_pi_0
+b0_rhopm_mu_kin_conf.m_l = m_mu
+b0_rhopm_mu_kin_conf.m_nom = m_rho_pm
+b0_rhopm_mu_kin_conf.g_nom = gam_rho_pm
+b0_rhopm_mu_kin_conf.l = 1
+
+b0_rhopm_e_kin_conf = deepcopy(b0_rhopm_mu_kin_conf)
+b0_rhopm_e_kin_conf.m_l = m_e
+
+
+bp_rho0_bcl_conf = bcl_conf()
+bp_rho0_bcl_conf.params_a0 = [8 * 0.291 * m_B_pm * m_rho_0 / (m_B_pm**2 - m_rho_0**2), -0.861, 1.444]
+bp_rho0_bcl_conf.params_a1 = [0.266, 0.378, 0.165]
+bp_rho0_bcl_conf.params_a12 = [0.291, 0.718, 0.384]
+bp_rho0_bcl_conf.params_v = [0.331, -0.876, 1.907]
+
+b0_rhopm_bcl_conf = bcl_conf()
+b0_rhopm_bcl_conf.params_a0 = [8 * 0.291 * m_B_0 * m_rho_pm / (m_B_0**2 - m_rho_pm**2), -0.861, 1.444]
+b0_rhopm_bcl_conf.params_a1 = [0.266, 0.378, 0.165]
+b0_rhopm_bcl_conf.params_a12 = [0.291, 0.718, 0.384]
+b0_rhopm_bcl_conf.params_v = [0.331, -0.876, 1.907]
+
+
+ff_conf_dict[('bp', 'rho')] = bp_rho0_bcl_conf
+ff_conf_dict[('b0', 'rho')] = b0_rhopm_bcl_conf
+
+kin_conf_dict[('bp', 'rho', 'mu')] = bp_rho0_mu_kin_conf
+kin_conf_dict[('bp', 'rho', 'e')] = bp_rho0_e_kin_conf
+kin_conf_dict[('b0', 'rho', 'mu')] = b0_rhopm_mu_kin_conf
+kin_conf_dict[('b0', 'rho', 'e')] = b0_rhopm_e_kin_conf
