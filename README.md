@@ -67,8 +67,10 @@ To select the ```ISGW2``` implementations, ```channel``` can be:
 - ```d1p_dstar_pi_isgw2```
 - ```d1p_d_pipi_isgw2```
 
-In addition, we support the ```BCL``` model for $B^+\rightarrow\rho^0\mu^+\nu_\mu$ decays.
+In addition, we support the ```BCL``` model for $B\rightarrow\rho\ell\nu_\ell$ decays.
 This EvtGen model has an additional problem, a division by zero in a basis change, which we reproduce as closely as feasible.
+
+**Note:** please double-check the default FF parameterizations align with your generator values.
 
 # References
 If you use MCAmbulance, you should cite the following references:
