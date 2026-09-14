@@ -137,4 +137,17 @@ class BtoD1plnu_ISGW2(BtoDstarstarlnu):
         cppcm = f5cppcm * self.msd ** 2 * self.bx2 / (np.sqrt(6. * self.bb2) * self.mtb * self.msq * self.bbx2)
         cpmcm = - np.sqrt(2. / 3.) * self.msd * f5cpmcm / self.mtx / np.sqrt(self.bb2) * (1. + self.msd * self.bx2 / 2. / self.msq / self.bbx2)
 
+        # smearing present in evtgen
+        parMass = self.m_1
+        q2max = parMass*parMass + M2 - 2.*parMass*np.sqrt(M2)
+        massNom = self.m_nom
+        q2maxNom = parMass*parMass + massNom*massNom - 2.*parMass*massNom
+        q2maxin = np.sqrt(q2maxNom / q2max)
+        if q2maxin > 1000:
+            q2maxin = 1000.
+        ql *= q2maxin
+        ll *= q2maxin
+        cppcm *= q2maxin
+        cpmcm *= q2maxin
+        
         return ql, ll, 0.5 * (cppcm + cpmcm), 0.5 * (cppcm - cpmcm)
