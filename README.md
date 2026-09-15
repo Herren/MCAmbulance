@@ -86,4 +86,6 @@ If you use MCAmbulance, you should cite the following references:
  * Raynette van Tonder <raynette.vantonder@kit.edu>
 
 # Contributors
+ * Tia Crane
+ * Dylan Houston
  * Ilias Tsaklidis
